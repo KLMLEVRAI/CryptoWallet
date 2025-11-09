@@ -1,0 +1,45 @@
+/* English */
+"welcome" = "Welcome to CryptoWallet";
+"your_ethical_wallet" = "Your ethical, non-custodial crypto wallet";
+"get_started" = "Get Started";
+"wallet" = "Wallet";
+"nfts" = "NFTs";
+"settings" = "Settings";
+"balance" = "Balance";
+"tokens" = "Tokens";
+"recent_transactions" = "Recent Transactions";
+"send" = "Send";
+"receive" = "Receive";
+"swap" = "Swap";
+"dark_mode" = "Dark Mode";
+"language" = "Language";
+"notifications" = "Notifications";
+"enable_notifications" = "Enable Notifications";
+"security" = "Security";
+"biometric_auth" = "Enable Biometric Authentication";
+"about" = "About";
+"ethical_commitments" = "Ethical Commitments";
+"privacy_policy" = "Privacy Policy";
+
+/* French */
+"welcome" = "Bienvenue sur CryptoWallet";
+"your_ethical_wallet" = "Votre portefeuille crypto éthique et non-custodial";
+"get_started" = "Commencer";
+"wallet" = "Portefeuille";
+"nfts" = "NFTs";
+"settings" = "Paramètres";
+"balance" = "Solde";
+"tokens" = "Jetons";
+"recent_transactions" = "Transactions récentes";
+"send" = "Envoyer";
+"receive" = "Recevoir";
+"swap" = "Échanger";
+"dark_mode" = "Mode sombre";
+"language" = "Langue";
+"notifications" = "Notifications";
+"enable_notifications" = "Activer les notifications";
+"security" = "Sécurité";
+"biometric_auth" = "Activer l'authentification biométrique";
+"about" = "À propos";
+"ethical_commitments" = "Engagements éthiques";
+"privacy_policy" = "Politique de confidentialité";

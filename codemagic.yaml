@@ -1,0 +1,93 @@
+workflows:
+  ios-debug:
+    name: iOS Debug Build
+    instance_type: mac_mini_m1
+    max_build_duration: 30
+    environment:
+      groups:
+        - ios_credentials
+      vars:
+        BUNDLE_ID: "com.cryptowallet.app"
+        XCODE_WORKSPACE: "CryptoWallet.xcworkspace"
+        XCODE_SCHEME: "CryptoWallet"
+      xcode: latest
+      cocoapods: default
+    scripts:
+      - name: Set up keychain
+        script: |
+          keychain initialize
+      - name: Fetch signing files
+        script: |
+          app-store-connect fetch-signing-files $BUNDLE_ID --type IOS_APP_STORE --create
+      - name: Use system default Ruby
+        script: |
+          rbenv global system
+      - name: Install dependencies
+        script: |
+          pod install
+      - name: Build debug
+        script: |
+          xcodebuild build -workspace "$XCODE_WORKSPACE" -scheme "$XCODE_SCHEME" -configuration Debug -destination generic/platform=iOS -archivePath build.xcarchive archive
+      - name: Export debug IPA
+        script: |
+          xcodebuild -exportArchive -archivePath build.xcarchive -exportOptionsPlist exportOptions.plist -exportPath .
+    artifacts:
+      - build/ios/ipa/*.ipa
+      - /tmp/xcodebuild_logs/*.log
+    publishing:
+      app_store_connect:
+        api_key: $APP_STORE_CONNECT_PRIVATE_KEY
+        key_id: $APP_STORE_CONNECT_KEY_IDENTIFIER
+        issuer_id: $APP_STORE_CONNECT_ISSUER_ID
+        submit_to_testflight: true
+
+  ios-release:
+    name: iOS Release Build
+    instance_type: mac_mini_m1
+    max_build_duration: 30
+    environment:
+      groups:
+        - ios_credentials
+      vars:
+        BUNDLE_ID: "com.cryptowallet.app"
+        XCODE_WORKSPACE: "CryptoWallet.xcworkspace"
+        XCODE_SCHEME: "CryptoWallet"
+      xcode: latest
+      cocoapods: default
+    scripts:
+      - name: Set up keychain
+        script: |
+          keychain initialize
+      - name: Fetch signing files
+        script: |
+          app-store-connect fetch-signing-files $BUNDLE_ID --type IOS_APP_STORE --create
+      - name: Use system default Ruby
+        script: |
+          rbenv global system
+      - name: Install dependencies
+        script: |
+          pod install
+      - name: Increment build number
+        script: |
+          #!/bin/sh
+          cd $CM_BUILD_DIR
+          current_version=$(agvtool what-marketing-version -terse1)
+          current_build=$(agvtool what-version -terse)
+          new_build=$((current_build + 1))
+          agvtool new-version -all $new_build
+      - name: Build release
+        script: |
+          xcodebuild build -workspace "$XCODE_WORKSPACE" -scheme "$XCODE_SCHEME" -configuration Release -destination generic/platform=iOS -archivePath build.xcarchive archive
+      - name: Export release IPA
+        script: |
+          xcodebuild -exportArchive -archivePath build.xcarchive -exportOptionsPlist exportOptions.plist -exportPath .
+    artifacts:
+      - build/ios/ipa/*.ipa
+      - /tmp/xcodebuild_logs/*.log
+    publishing:
+      app_store_connect:
+        api_key: $APP_STORE_CONNECT_PRIVATE_KEY
+        key_id: $APP_STORE_CONNECT_KEY_IDENTIFIER
+        issuer_id: $APP_STORE_CONNECT_ISSUER_ID
+        submit_to_app_store: false
+        submit_to_testflight: true
