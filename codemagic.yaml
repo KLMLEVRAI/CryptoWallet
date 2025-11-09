@@ -31,10 +31,6 @@ workflows:
       email:
         recipients:
           - build@cryptowallet.app
-        subject: "iOS Debug Build"
-        body: "CryptoWallet iOS debug build completed"
-        attachments:
-          - build/Debug-iphoneos/*.app
 
   ios-release:
     name: iOS Release Build
@@ -68,7 +64,3 @@ workflows:
       email:
         recipients:
           - build@cryptowallet.app
-        subject: "iOS Release Build"
-        body: "CryptoWallet iOS release build completed"
-        attachments:
-          - build/Release-iphoneos/*.app
