@@ -8,7 +8,6 @@ workflows:
         BUNDLE_ID: "com.cryptowallet.app"
         XCODE_SCHEME: "CryptoWallet"
       xcode: latest
-      swift: latest
     scripts:
       - name: Generate Xcode project
         script: |
@@ -38,7 +37,6 @@ workflows:
         BUNDLE_ID: "com.cryptowallet.app"
         XCODE_SCHEME: "CryptoWallet"
       xcode: latest
-      swift: latest
     scripts:
       - name: Generate Xcode project
         script: |
